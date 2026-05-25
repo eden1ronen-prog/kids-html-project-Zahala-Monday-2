@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ================================================= -->
+  <!-- כותרת האתר -->
+  <!-- אפשר לשנות את השם -->
+  <!-- ================================================= -->
+
+  <title>תעלומת כדור הבדולח</title>
+
+  <style>
+
+    /* ================================================= */
+    /* עיצוב כללי של הדף */
+    /* ================================================= */
+
+    body {
+      font-family: Arial;
+      background: linear-gradient(#140022, #3b0066);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* ================================================= */
+    /* עיצוב של כל שלב בסיפור */
+    /* ================================================= */
+
+    .scene {
+      display: none;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      margin-top: 20px;
+      box-shadow: 0 0 15px black;
+    }
+
+    /* ================================================= */
+    /* החדר שמוצג כרגע */
+    /* ================================================= */
+
+    .active {
+      display: block;
+    }
+
+    /* ================================================= */
+    /* עיצוב כפתורים */
+    /* ================================================= */
+
+    button {
+      background: #ffd6ff;
+      border: none;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    /* אפקט מעבר עכבר */
+
+    button:hover {
+      background: white;
+      transform: scale(1.05);
+    }
+
+    /* ================================================= */
+    /* אימוג'ים */
+    /* ================================================= */
+
+    .emoji {
+      font-size: 60px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================================= -->
+  <!-- פתיחה -->
+  <!-- ================================================= -->
+
+  <\h1>The mystery of the missing sock </h1>
+
+  <div id="scene1" class="scene active">
+
+    <div class="emoji">🧙</div>
+
+    <p>
+     Oh no! 
+Dobby's sock has gone missing!
+Let's help him find it!🧦 
+    </p>
+
+    <!-- ================================================= -->
+    <!-- 3 אפשרויות -->
+    <!-- ================================================= -->
+
+    <button onclick="showScene('scene2')">
+      🍳 check the kitchens
+    </button>
+
+    <button onclick="showScene('wrong1')">
+      🧙‍♂️ check the headmasters office
+    </button>
+
+    <button onclick="showScene('wrong2')">
+      🚾 check the prefects bathroom
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- שלב 2 -->
+  <!-- ================================================= -->
+
+  <div id="scene2" class="scene">
+
+    <div class="emoji">📚</div>
+
+    <p>
+       Oh no! The kitchens are guarded by an elf!
+You decide to bribe him. What do you give him?
+    </p>
+
+    <button onclick="showScene('scene3')">
+      🍭 Give him candy
+    </button>
+
+    <button onclick="showScene('wrong3')">
+      💸 Give him money    </button>
+
+    <button onclick="showScene('wrong4')">
+    😴 Give him a pillow
+    </button>
+
+    <br>
+
+    <button onclick="showScene('scene1')">
+      ⬅️ Back
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- שלב 3 -->
+  <!-- ================================================= -->
+
+  <div id="scene3" class="scene">
+
+    <div class="emoji">📖</div>
+
+    <p>
+     You got in! Where do you look for the sock?   
+    </p>
+
+    <button onclick="showScene('scene4')">
+      🧊 The fridge
+    </button>
+
+    <button onclick="showScene('wrong5')">
+      🍽️The drawers
+    </button>
+
+    <button onclick="showScene('wrong6')">
+     🚰 The sink
+    </button>
+
+    <br>
+
+    <button onclick="showScene('scene2')">
+      ⬅️ Back
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- שלב 4 -->
+  <!-- ================================================= -->
+
+  <div id="scene4" class="scene">
+
+    <div class="emoji">❄️</div>
+
+    <p>
+Inside the fridge there were 3 boxes, one red, one green an one blue. Which one do you choose?
+    </p>
+
+    <button onclick="showScene('scene5')">
+     ❤️ The red box.
+    </button>
+
+    <button onclick="showScene('wrong7')">
+      💚 The green box.
+    </button>
+
+    <button onclick="showScene('wrong8')">
+      💙 The blue box.
+    </button>
+
+    <br>
+
+    <button onclick="showScene('scene3')">
+      ⬅️ Back
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- שלב 5 -->
+  <!-- ================================================= -->
+
+  <div id="scene5" class="scene">
+
+    <div class="emoji">🔑</div>
+
+    <p>
+You open the red box and there are 3 items in it. Which one is the right one?
+    </p>
+
+    <button onclick="showScene('solution')">
+      🧦 Take the sock
+    </button>
+
+    <button onclick="showScene('wrong9')">
+      📕 Take the book
+    </button>
+
+    <button onclick="showScene('wrong10')">
+      🥛 Take the drink
+    </button>
+
+    <br>
+
+    <button onclick="showScene('scene4')">
+      ⬅️ Back
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- הפתרון -->
+  <!-- ================================================= -->
+
+  <div id="solution" class="scene">
+
+    <div class="emoji">🤣</div>
+
+    <p>
+      You took the sock and ran to give it to Dobby!
+    </p>
+
+    <p>
+Dobby is so happy! He says: "Dobby is free!"
+    </p>
+
+    <img src="hamster.png">
+
+
+    <button onclick="showScene('scene1')">
+      🔄 Start over
+    </button>
+
+  </div>
+
+  <!-- ================================================= -->
+  <!-- אפשרויות לא נכונות -->
+  <!-- ================================================= -->
+
+  <div id="wrong1" class="scene">
+    <div class="emoji">🧙‍♂️</div>
+    <p>
+Oh no! He caught you and took 20 points from your house!
+    </p>
+
+    <button onclick="showScene('scene1')">
+🥛      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong2" class="scene">
+    <div class="emoji">🚾</div>
+    <p>
+      The door was locked:(
+      
+    </p>
+
+    <button onclick="showScene('scene1')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong3" class="scene">
+    <div class="emoji">💸</div>
+    <p>
+     He didn't want it.
+    </p>
+
+    <button onclick="showScene('scene2')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong4" class="scene">
+    <div class="emoji">😴</div>
+    <p>
+He threw the pillow at you!
+    </p>
+
+    <button onclick="showScene('scene2')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong5" class="scene">
+    <div class="emoji">🍽️</div>
+    <p>
+      The drawers were full of dishes, not socks silly!
+    </p>
+
+    <button onclick="showScene('scene3')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong6" class="scene">
+    <div class="emoji">🚰</div>
+    <p>
+      You got wet.
+    </p>
+
+    <button onclick="showScene('scene3')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong7" class="scene">
+    <div class="emoji">💚</div>
+    <p>
+Eww! It had a frog in it!
+    </p>
+
+    <button onclick="showScene('scene4')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong8" class="scene">
+    <div class="emoji">💙</div>
+    <p>
+      The box is empty...
+    </p>
+
+    <button onclick="showScene('scene4')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong9" class="scene">
+    <div class="emoji">📕</div>
+    <p>
+      The book only had blank pages in it.
+      
+    </p>
+
+    <button onclick="showScene('scene5')">
+      ⬅️ Back
+    </button>
+  </div>
+
+  <div id="wrong10" class="scene">
+    <div class="emoji">🥛</div>
+    <p>
+      You drink the drink and pass out!
+    </p>
+
+    <button onclick="showScene('scene5')">
+      ⬅️ חזרה
+    </button>
+  </div>
+
+  <script>
+
+    // =================================================
+    // פונקציה שמסתירה את כל השלבים
+    // ומציגה רק את השלב שנבחר
+    // =================================================
+
+    function showScene(sceneId) {
+
+      // מוצא את כל השלבים
+      let scenes = document.querySelectorAll('.scene');
+
+      // מסתיר את כולם
+      scenes.forEach(function(scene) {
+        scene.classList.remove('active');
+      });
+
+      // מציג את השלב שנבחר
+      document.getElementById(sceneId).classList.add('active');
+    }
+
+  </script>
+
+</body>
+</html>
