@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<title>איזה גיבור על אתה?</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    text-align:center;
+    background:#eaf6ff;
+    padding:20px;
+}
+
+#question{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+button{
+    padding:12px 20px;
+    margin:8px;
+    font-size:18px;
+    cursor:pointer;
+    border-radius:10px;
+}
+
+.answer{
+    display:block;
+    margin:10px auto;
+}
+
+.heroImage{
+    width:300px;
+    border-radius:20px;
+}
+
+.powerImages{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.powerImages img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.restart{
+    margin-top:30px;
+    font-size:20px;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>Which Baudelaire child are you?</h1>
+
+<div id="game"></div>
+
+<script>
+
+/* =====================================================
+   אזור 1 - הגיבורים
+   הילדים יכולים לשנות שמות, תמונות וכוחות
+   ===================================================== */
+
+let heroes = {
+
+
+fire:{
+name:"Violet Baudelaire 🎀",
+image:"https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8468e37266b3cc07cccceb99c0",
+power1:"https://home.adelphi.edu/~os21475/violet.png",
+power2:"https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8468e37266b3cc07cccceb99c0",
+description:"A smart and creative girl, can create anything!"
+},
+
+ice:{
+name:" Klaus Baudelaire 👓",
+image:"https://static.wikia.nocookie.net/p__/images/e/e1/Klaus_Baudelaire_TV.png/revision/latest/scale-to-width/360?cb=20180401224012&path-prefix=protagonist",
+power1:"https://static.wikia.nocookie.net/snicket/images/b/b6/Klaus_netflix_square.png/revision/latest?cb=20190812152716",
+power2:"https://www.usajacket.com/wp-content/uploads/2019/04/Klaus-Baudelaire-Blue-Coat.jpg",
+description:"A smart boy who loves reading books and learning new things!"
+},
+
+lightning:{
+name:"Sunny Baudelaire 👶",
+image:"https://static.wikia.nocookie.net/actionmoviefranchises/images/f/fb/SunnyBaudelaireCropped.png/revision/latest?cb=20250608201343",
+power1:"https://static.wikia.nocookie.net/snicket/images/c/c5/Sunny-baby-square.png/revision/latest/scale-to-width/360?cb=20190812150352",
+power2:"https://i.pinimg.com/736x/5e/d0/44/5ed0449e37b8c60cb985ff660535fd2c.jpg",
+description:"A cute baby with very strong teeth and a lot things to say!"
+}
+
+};
+
+
+/* =====================================================
+   אזור 2 - שאלות
+   ===================================================== */
+
+let questions = [
+
+{
+q:"What's your favorite activity on a rainy day?",
+answers:[
+["Finding something new to create","fire"],
+[" Read a book in the library","ice"],
+["Chew on something","lightning"]
+]
+},
+
+{
+q:"If you'd have a superpower, it would be...",
+answers:[
+["Create anything you want from scrap","fire"],
+["Read any book in seconds","ice"],
+["Be able to make things with your teeth","lightning"]
+]
+},
+
+{
+q:"What's your favourite colour?",
+answers:[
+["Purple","fire"],
+["Blue","ice"],
+["Yellow","lightning"]
+]
+}
+
+];
+
+
+/* =====================================================
+   משתני משחק
+   ===================================================== */
+
+let fire;
+let ice;
+let lightning;
+let step;
+
+
+/* =====================================================
+   התחלת משחק
+   ===================================================== */
+
+function startGame(){
+
+fire = 0;
+ice = 0;
+lightning = 0;
+
+step = 0;
+
+showQuestion();
+
+}
+
+
+/* =====================================================
+   הצגת שאלה
+   ===================================================== */
+
+function showQuestion(){
+
+let q = questions[step];
+
+let html = `
+<div id="question">${q.q}</div>
+`;
+
+for(let i=0;i<q.answers.length;i++){
+
+html += `
+<button class="answer"
+onclick="choose('${q.answers[i][1]}')">
+${q.answers[i][0]}
+</button>
+`;
+
+}
+
+document.getElementById("game").innerHTML = html;
+
+}
+
+
+/* =====================================================
+   בחירת תשובה
+   ===================================================== */
+
+function choose(type){
+
+if(type=="fire"){
+fire++;
+}
+
+if(type=="ice"){
+ice++;
+}
+
+if(type=="lightning"){
+lightning++;
+}
+
+step++;
+
+if(step < questions.length){
+
+showQuestion();
+
+}
+else{
+
+showResult();
+
+}
+
+}
+
+
+/* =====================================================
+   הצגת תוצאה
+   ===================================================== */
+
+function showResult(){
+
+let winner = "fire";
+
+if(ice > fire && ice > lightning){
+winner = "ice";
+}
+
+if(lightning > fire && lightning > ice){
+winner = "lightning";
+}
+
+let hero = heroes[winner];
+
+document.getElementById("game").innerHTML =
+
+`
+<h2>🎉 הגיבור שאתה הוא:</h2>
+
+<h1>${hero.name}</h1>
+
+<img class="heroImage"
+src="${hero.image}">
+
+<h3>${hero.description}</h3>
+
+<h2>הכוחות שלך</h2>
+
+<div class="powerImages">
+
+<img src="${hero.power1}">
+
+<img src="${hero.power2}">
+
+</div>
+
+<button class="restart"
+onclick="startGame()">
+🔄 חזרה להתחלה
+</button>
+`;
+
+}
+
+
+/* =====================================================
+   התחלת המשחק בעת פתיחת הדף
+   ===================================================== */
+
+startGame();
+
+</script>
+
+</body>
+</html>
