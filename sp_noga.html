@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<title>איזה חתול על אתה?</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    text-align:center;
+    background:#eaf6ff;
+    padding:20px;
+}
+
+#question{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+button{
+    padding:12px 20px;
+    margin:8px;
+    font-size:18px;
+    cursor:pointer;
+    border-radius:10px;
+}
+
+.answer{
+    display:block;
+    margin:10px auto;
+}
+
+.heroImage{
+    width:300px;
+    border-radius:20px;
+}
+
+.powerImages{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.powerImages img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.restart{
+    margin-top:30px;
+    font-size:20px;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>🦸 איזה חתול על אתה? 🦸</h1>
+
+<div id="game"></div>
+
+<script>
+
+/* =====================================================
+   אזור 1 - הגיבורים
+   הילדים יכולים לשנות שמות, תמונות וכוחות
+   ===================================================== */
+
+let heroes = {
+
+
+fire:{
+name:"חתול האש 🔥",
+image:"https://www.animed.co.il/wp-content/uploads/2020/12/3.jpg",
+power1:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0HXDhRPbAH6yxhTj9pQNtdftswgxblg4DLw&s",
+power2:"https://www.animalcenter.co.il/wp-content/uploads/2019/01/cat-1046343_960_720.jpg",
+description:"שולט באש, יוצר להבות אש ומגן אש."
+},
+
+ice:{
+name:"חתול הקרח ❄️",
+image:"https://topdog.co.il/wp-content/uploads/2023/08/beautiful-shot-white-british-shorthair-kitten-1.jpg",
+power1:"https://mydoctor.co.il/wp-content/uploads/httpsmydoctor.co_.il-%D7%95%D7%98%D7%A8%D7%99%D7%A0%D7%A8-%D7%91%D7%94%D7%A8%D7%A6%D7%9C%D7%99%D7%94-scaled.jpg",
+power2:"https://www.petfinder.co.il/wp-content/uploads/2024/05/c7c5332e-aeb2-4c94-b912-d0bdf5a87de6.jpeg",
+description:"מקפיא אויבים והופך אותו לגוש קרח ובונה חומות קרח."
+},
+
+lightning:{
+name:"חתול הברקים ⚡",
+image:"https://girgurimpetshop.co.il/wp-content/uploads/2019/02/ODRA5R0.jpg",
+power1:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMvOqQ0Oz5VzW6oHjf5NZx1GoXrybqIZkDXg&s",
+power2:"https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg",
+description:"רץ במהירות על ויוצר מכת ברק."
+}
+
+};
+
+
+/* =====================================================
+   אזור 2 - שאלות
+   ===================================================== */
+
+let questions = [
+
+{
+q:"מה מזג האוויר האהוב עליך?",
+answers:[
+["יום חם 🔥","fire"],
+["יום מושלג וקר ❄️","ice"],
+["סופת  ברקים וגשם ⚡","lightning"]
+]
+},
+
+{
+q:"איזה כוח היית רוצה לקבל?",
+answers:[
+["ליצור כדורי אש","fire"],
+["להקפיא דברים","ice"],
+["לשלוט בחשמל","lightning"]
+]
+},
+
+{
+q:"איך היית נלחם בנבל?",
+answers:[
+["כדור אש","fire"],
+["מגן קרח","ice"],
+["מכת ברק","lightning"]
+]
+}
+
+];
+
+
+/* =====================================================
+   משתני משחק
+   ===================================================== */
+
+let fire;
+let ice;
+let lightning;
+let step;
+
+
+/* =====================================================
+   התחלת משחק
+   ===================================================== */
+
+function startGame(){
+
+fire = 0;
+ice = 0;
+lightning = 0;
+
+step = 0;
+
+showQuestion();
+
+}
+
+
+/* =====================================================
+   הצגת שאלה
+   ===================================================== */
+
+function showQuestion(){
+
+let q = questions[step];
+
+let html = `
+<div id="question">${q.q}</div>
+`;
+
+for(let i=0;i<q.answers.length;i++){
+
+html += `
+<button class="answer"
+onclick="choose('${q.answers[i][1]}')">
+${q.answers[i][0]}
+</button>
+`;
+
+}
+
+document.getElementById("game").innerHTML = html;
+
+}
+
+
+/* =====================================================
+   בחירת תשובה
+   ===================================================== */
+
+function choose(type){
+
+if(type=="fire"){
+fire++;
+}
+
+if(type=="ice"){
+ice++;
+}
+
+if(type=="lightning"){
+lightning++;
+}
+
+step++;
+
+if(step < questions.length){
+
+showQuestion();
+
+}
+else{
+
+showResult();
+
+}
+
+}
+
+
+/* =====================================================
+   הצגת תוצאה
+   ===================================================== */
+
+function showResult(){
+
+let winner = "fire";
+
+if(ice > fire && ice > lightning){
+winner = "ice";
+}
+
+if(lightning > fire && lightning > ice){
+winner = "lightning";
+}
+
+let hero = heroes[winner];
+
+document.getElementById("game").innerHTML =
+
+`
+<h2>🎉 הגיבור שאתה הוא:</h2>
+
+<h1>${hero.name}</h1>
+
+<img class="heroImage"
+src="${hero.image}">
+
+<h3>${hero.description}</h3>
+
+<h2>הכוחות שלך</h2>
+
+<div class="powerImages">
+
+<img src="${hero.power1}">
+
+<img src="${hero.power2}">
+
+</div>
+
+<button class="restart"
+onclick="startGame()">
+🔄 חזרה להתחלה
+</button>
+`;
+
+}
+
+
+/* =====================================================
+   התחלת המשחק בעת פתיחת הדף
+   ===================================================== */
+
+startGame();
+
+</script>
+
+</body>
+</html>
